@@ -36,9 +36,10 @@ def modelTest():
     datasetname = config.malicious_root.split('/')[-1]
     model = prepare_model()
 
-    r_acc, auc = evaluate(model, config.normal_root, config.malicious_root, config.csv_root, "test")
+    r_acc, auc ,con_mat= evaluate(model, config.normal_root, config.malicious_root, config.csv_root, "test")
     print(config.model_name+"模型在{}数据集上的acc为：".format(datasetname) + str(r_acc))
     print(config.model_name+"模型在{}数据集上的auc为：".format(datasetname) + str(auc))
+    print(config.model_name+"模型在{}数据集上的con_mat为：".format(datasetname) + str(auc))
 
 
 if __name__ == '__main__':

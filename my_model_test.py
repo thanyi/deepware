@@ -3,8 +3,6 @@
 """
 
 
-
-
 import glob
 import os
 import torch
@@ -15,7 +13,7 @@ import cv2
 
 
 # 文件夹的路径、总体的图片计数、发现deepfake的计数
-path_name = r"F:\dataset\Celeb-DF-v2\celeb_syn_dlib\id0_id1_0002"
+path_name = r"D:\DeepFakeProject_in_D\deepfake_project\eliminate_project\secruity-eye\res\006_002"
 total_count = 0
 deepfake_count = 0
 
@@ -35,11 +33,13 @@ print(f'margin: {margin}, size: {face_size}, arch: {arch}')
 model_list = []
 model = EffNet(arch).to("cuda:0")
 checkpoint = torch.load(cfg['pretain_model_path'], map_location=lambda storage, loc: storage.cuda(0))
+# checkpoint = torch.load(cfg['pretain_model_path'], map_location=lambda storage, loc: storage)
 model.load_state_dict(checkpoint)
 del checkpoint
 
 model_list.append(model)
 deepware = Ensemble(model_list).eval().to("cuda:0")
+# deepware = Ensemble(model_list).eval()
 
 # 开始使用
 for file in listdir:
@@ -57,6 +57,7 @@ for file in listdir:
     img = img.unsqueeze(0)
 
     output = deepware(img.to("cuda:0"))
+    # output = deepware(img)
     print(output)
     if output.item() > 0 :
         # print("图片为deepfake")
@@ -66,7 +67,7 @@ for file in listdir:
 
     total_count+=1
 
-if deepfake_count / total_count < 0.5:
+if deepfake_count / total_count < 0.2:
     print("这个视频是真实的视频")
 else:
     print("这个视频是deepfake视频")

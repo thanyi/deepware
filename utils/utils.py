@@ -3,6 +3,7 @@ import torch
 from sklearn.metrics import average_precision_score, precision_recall_curve, accuracy_score
 from sklearn.metrics import roc_curve
 from sklearn.metrics import auc as cal_auc
+from sklearn.metrics import confusion_matrix
 import numpy as np
 from torch.utils import data
 
@@ -49,5 +50,6 @@ def evaluate(model, normal_root,malicious_root,csv_root, mode='valid',):
                 y_pred[i] = 1
 
         r_acc = accuracy_score(y_true, y_pred)
+        con_mat = confusion_matrix(y_true,y_pred)
 
-    return r_acc, AUC
+    return r_acc, AUC,con_mat
