@@ -29,14 +29,17 @@ def evaluate(model, normal_root,malicious_root,csv_root, mode='valid',):
 
         device = torch.device("cuda")
         correct = 0
-        total = len(my_dataset)
+        total = len(dataloader)
 
-        for x, y in dataloader:
+        for i, x, y in enumerate(dataloader):
             x, y = x.to(device), y.to(device)
 
             output = model(x)
             y_pred.extend(output.sigmoid().flatten().tolist())
             y_true.extend(y.flatten().tolist())
+
+            if total % 10 == 0:
+                print(f"当前进度：{i}/{total}...")
 
         y_true, y_pred = np.array(y_true), np.array(y_pred)
         fpr, tpr, thresholds = roc_curve(y_true, y_pred, pos_label=1)
