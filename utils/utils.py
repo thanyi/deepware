@@ -52,4 +52,4 @@ def evaluate(model, normal_root,malicious_root,csv_root, mode='valid',):
         r_acc = accuracy_score(y_true, y_pred)
         con_mat = confusion_matrix(y_true,y_pred)
 
-    return r_acc, AUC,con_mat
+    return r_acc, AUC, con_mat
