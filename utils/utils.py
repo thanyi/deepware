@@ -31,7 +31,7 @@ def evaluate(model, normal_root,malicious_root,csv_root, mode='valid',):
         correct = 0
         total = len(dataloader)
 
-        for i, x, y in enumerate(dataloader):
+        for i, (x, y) in enumerate(dataloader):
             x, y = x.to(device), y.to(device)
 
             output = model(x)
