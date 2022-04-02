@@ -38,7 +38,7 @@ def evaluate(model, normal_root,malicious_root,csv_root, mode='valid',):
             y_pred.extend(output.sigmoid().flatten().tolist())
             y_true.extend(y.flatten().tolist())
 
-            if total % 10 == 0:
+            if i % 5 == 0:
                 print(f"当前进度：{i}/{total}...")
 
         y_true, y_pred = np.array(y_true), np.array(y_pred)
