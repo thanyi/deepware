@@ -125,9 +125,9 @@ class DeepfakeDataset(Dataset):
         tf = transforms.Compose([
             lambda x: Image.open(x).convert("RGB"),  # string path => image data
             # transforms.Resize((int(self.resize), int(self.resize))),
-            transforms.Resize((int(self.resize * 1.25), int(self.resize * 1.25))),
-            transforms.RandomRotation(30),
-            transforms.CenterCrop(self.resize),
+            # transforms.Resize((int(self.resize * 1.25), int(self.resize * 1.25))),
+            # transforms.RandomRotation(30),
+            # transforms.CenterCrop(self.resize),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                  std=[0.229, 0.224, 0.225])
