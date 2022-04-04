@@ -138,7 +138,7 @@ class DeepfakeDataset(Dataset):
 
         tf = transforms.Compose([
             lambda x: Image.open(x).convert("RGB"),  # string path => image data
-            # transforms.Resize((int(self.resize), int(self.resize))),
+            transforms.Resize((int(self.resize), int(self.resize))),
             # transforms.Resize((int(self.resize * 1.25), int(self.resize * 1.25))),
             # transforms.RandomRotation(30),
             # transforms.CenterCrop(self.resize),

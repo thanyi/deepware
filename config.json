@@ -8,5 +8,5 @@
 	"augments": {
 		"strong_transform": 1
 	},
-	"pretain_model_path": "/content/drive/MyDrive/models/deepware/deepware.pt"
+	"pretain_model_path": "weights/deepware.pt"
 }
