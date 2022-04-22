@@ -4,7 +4,7 @@
 """
 from scan import *
 from torchvision import transforms
-from utils.utils import evaluate
+from utils.utils import evaluate_2
 import dataset.dataset_conf as config
 
 
@@ -33,13 +33,13 @@ def prepare_model():
 
 def modelTest():
 
-    datasetname = config.malicious_root.split('/')[-1]
+
     model = prepare_model()
 
-    r_acc, auc ,con_mat= evaluate(model, config.normal_root, config.malicious_root, config.csv_root, "test")
-    print(config.model_name+"模型在{}数据集上的acc为：".format(datasetname) + str(r_acc))
-    print(config.model_name+"模型在{}数据集上的auc为：".format(datasetname) + str(auc))
-    print(config.model_name+"模型在{}数据集上的con_mat为：".format(datasetname) + str(con_mat))
+    r_acc, auc = evaluate_2(model, config.dfdc_root, config.dfdc_syn_root, config.dfdc_csv_root, "test")
+    print(config.model_name+"模型在DFDC数据集上的acc为：" + str(r_acc))
+    print(config.model_name+"模型在DFDC数据集上的auc为：" + str(auc))
+    # print(config.model_name+"模型在DFDC数据集上的con_mat为：" + str(con_mat))
 
 
 if __name__ == '__main__':
