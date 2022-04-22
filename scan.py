@@ -1,5 +1,4 @@
 import os, sys, glob, time, json
-import random
 from collections import defaultdict
 import cv2
 import torch
@@ -16,7 +15,7 @@ import torchvision.transforms.functional as TF
 from torch.cuda.amp import autocast
 
 
-
+device = 'cuda'
 
 margin = 0
 scan_fps = 1
@@ -177,7 +176,6 @@ preprocess = transforms.Compose([
 
 
 def scan(file):
-	k=0
 	frames = get_frames(file, batch_size, scan_fps)
 	faces, preds = [], []
 
@@ -190,12 +188,8 @@ def scan(file):
 			for j, box in enumerate(boxes):
 				if probs[j] > 0.98:
 					face = crop_face(batch[i], box, margin)
-					# face = cv2.normalize(face, None, 0, 255, cv2.NORM_MINMAX)
+					face = cv2.normalize(face, None, 0, 255, cv2.NORM_MINMAX)
 					face = cv2.resize(face, face_size)
-
-					img = Image.fromarray(face,'RGB')
-					img.save("img/test{}.png".format(k))
-					k+=1
 					faces.append(face)
 
 	if len(faces) == 0:
@@ -307,4 +301,3 @@ def main():
 if __name__ == '__main__':
 	np.warnings.filterwarnings('ignore', category=np.VisibleDeprecationWarning)
 	main()
-	# scan()

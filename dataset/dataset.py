@@ -30,7 +30,7 @@ class DeepfakeDataset(Dataset):
         # {"malicious":1,"normal":0}
 
         # image, label
-        self.images, self.labels = self.load_csv("images.csv")
+        self.images, self.labels= self.load_csv("images.csv")
 
         # 对数据集进行划分
         if mode == "train":  # 60%
@@ -47,10 +47,10 @@ class DeepfakeDataset(Dataset):
             self.images = self.val_images
             self.labels = self.val_labels
         else:  # 20% = 80%~100%
-            self.test_images = self.images[:int(0.1 * len(self.images))]
-            self.test_images.extend(self.images[int(0.9 * len(self.images)):])
-            self.test_labels = self.labels[:int(0.1 * len(self.labels))]
-            self.test_labels.extend(self.labels[int(0.9 * len(self.labels)):])
+            self.test_images = self.images[:int(0.05 * len(self.images))]
+            self.test_images.extend(self.images[int(0.95 * len(self.images)):])
+            self.test_labels = self.labels[:int(0.05 * len(self.labels))]
+            self.test_labels.extend(self.labels[int(0.95 * len(self.labels)):])
 
             self.images = self.test_images
             self.labels = self.test_labels
@@ -80,19 +80,6 @@ class DeepfakeDataset(Dataset):
                     # 获取指定目录下所有的满足后缀的图像名
                     malicious_images += glob.glob(os.path.join(os.path.join(root, dir), "*.png"))
 
-            # # 正常图片的路径载入
-            # dirs = os.listdir(os.path.join(self.normal_root))
-            # root = os.path.abspath(__file__)
-            # for dir in dirs:
-            #     # 获取指定目录下所有的满足后缀的图像名
-            #     normal_images += glob.glob(os.path.join(os.path.join(root, dir), "*.png"))
-            #
-            # # 虚假图片的路径载入
-            # dirs = os.listdir(os.path.join(self.malicious_root))
-            # root = os.path.abspath(__file__)
-            # for dir in dirs:
-            #     # 获取指定目录下所有的满足后缀的图像名
-            #     malicious_images += glob.glob(os.path.join(os.path.join(root, dir), "*.png"))
 
             with open(os.path.join(self.csv_root, filename), mode="w", newline="") as f:
                 writer = csv.writer(f)

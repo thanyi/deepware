@@ -9,13 +9,13 @@ from torch.utils import data
 
 def evaluate(model, normal_root,malicious_root,csv_root, mode='valid',):
 
-    my_dataset = DeepfakeDataset(normal_root=normal_root, malicious_root=malicious_root, mode=mode, resize=299,
+    my_dataset = DeepfakeDataset(normal_root=normal_root, malicious_root=malicious_root, mode=mode, resize=380,
                                  csv_root=csv_root)
     malicious_name = malicious_root.split('/')[-1]
     print("This is the {} {} dataset!".format(malicious_name,mode))
     print("dataset size:{}".format(len(my_dataset)))
 
-    bz = 64
+    bz = 32
     # torch.cache.empty_cache()
     with torch.no_grad():
         y_true, y_pred = [], []
